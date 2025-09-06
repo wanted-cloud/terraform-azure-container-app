@@ -1,1 +1,3 @@
-// Place for module output variables
+output "container_app_id" {
+  value = azurerm_container_app.this
+}
