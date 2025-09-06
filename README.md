@@ -31,28 +31,6 @@ The following providers are used by this module:
 
 The following input variables are required:
 
-### <a name="input_environment_name"></a> [environment\_name](#input\_environment\_name)
-
-Description: Name of the Azure Container App Environment.
-
-Type: `string`
-
-### <a name="input_name"></a> [name](#input\_name)
-
-Description: Name of the Azure Container App.
-
-Type: `string`
-
-### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
-
-Description: Name of the resource group in which the Azure Container App will be created.
-
-Type: `string`
-
-## Optional Inputs
-
-The following input variables are optional (have default values):
-
 ### <a name="input_container"></a> [container](#input\_container)
 
 Description: Configuration for the container within the Azure Container App.
@@ -76,16 +54,27 @@ object({
   })
 ```
 
-Default:
+### <a name="input_environment_name"></a> [environment\_name](#input\_environment\_name)
 
-```json
-{
-  "cpu": 0.25,
-  "image": "mcr.microsoft.com/k8se/quickstart:latest",
-  "memory": "0.5Gi",
-  "name": "examplecontainerapp"
-}
-```
+Description: Name of the Azure Container App Environment.
+
+Type: `string`
+
+### <a name="input_name"></a> [name](#input\_name)
+
+Description: Name of the Azure Container App.
+
+Type: `string`
+
+### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
+
+Description: Name of the resource group in which the Azure Container App will be created.
+
+Type: `string`
+
+## Optional Inputs
+
+The following input variables are optional (have default values):
 
 ### <a name="input_environment_resource_group_name"></a> [environment\_resource\_group\_name](#input\_environment\_resource\_group\_name)
 
