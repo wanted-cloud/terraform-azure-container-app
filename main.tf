@@ -6,22 +6,22 @@
 
 resource "azurerm_container_app" "this" {
   name                         = var.name
-  container_app_environment_id = data.azurerm_container_app_environment.this.id
+  container_app_environment_id = var.container_app_environment_id
   resource_group_name          = data.azurerm_resource_group.this.name
   revision_mode                = var.revision_mode
   tags                         = var.tags
 
   dynamic "identity" {
-    for_each = var.identity_type != "" ? [var.identity_type] : []
+    for_each = var.identity != null ? [var.identity] : []
     content {
-      type         = identity.value
-      identity_ids = var.user_assigned_identity_ids
+      type         = identity.value.type
+      identity_ids = identity.value.identity_ids
     }
   }
 
   template {
     dynamic "init_container" {
-      for_each = var.init_container != null ? [var.init_container] : []
+      for_each = var.init_container
       content {
         name   = init_container.value.name
         image  = init_container.value.image
@@ -30,12 +30,15 @@ resource "azurerm_container_app" "this" {
       }
     }
 
-    container {
-      name   = var.container.name
-      image  = var.container.image
-      cpu    = var.container.cpu
-      memory = var.container.memory
-      args   = var.container.args
+    dynamic "container" {
+      for_each = var.container
+      content {
+        name   = container.value.name
+        image  = container.value.image
+        cpu    = container.value.cpu
+        memory = container.value.memory
+        args   = container.value.args
+      }
     }
   }
 
